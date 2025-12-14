@@ -1,56 +1,57 @@
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
+import apiRoutes from "./routes/api";
+import { globalLimiter } from "./middleware/rateLimiters";
 import { startVehicleSyncJob } from "./jobs";
-import { getVehicles } from "./db";
+import "dotenv/config";
 
 const app = express();
 const PORT = 3000;
 
-// Middleware
-app.use(cors({ origin: "*" })); // Allow all for dev, restrict in prod
-app.use(express.json());
+// ==========================================
+// 1. SECURITY MIDDLEWARE
+// ==========================================
 
-// 1. Start Background Jobs
+// A. Helmet: Sets various HTTP headers to secure the app
+app.use(helmet());
+
+// B. Strict CORS: Only allow requests from your specific Frontend URL
+const allowedOrigins = ["http://localhost:5173"];
+
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			// Allow requests with no origin (like mobile apps or curl requests)
+			if (!origin) return callback(null, true);
+			if (allowedOrigins.indexOf(origin) === -1) {
+				const msg =
+					"The CORS policy for this site does not allow access from the specified Origin.";
+				return callback(new Error(msg), false);
+			}
+			return callback(null, true);
+		},
+		methods: ["GET", "POST"],
+		allowedHeaders: ["Content-Type", "Authorization"],
+	})
+);
+
+// C. Global Rate Limiter
+app.use(globalLimiter);
+
+// D. JSON Parsing with limit
+app.use(express.json({ limit: "10kb" }));
+
+// ==========================================
+// 2. ROUTES & JOBS
+// ==========================================
+
+// API Routes
+app.use("/api", apiRoutes);
+
+// Start Background Jobs (Cron)
 startVehicleSyncJob();
 
-// 2. API: Get Vehicles (Reads from local DB cache, super fast)
-app.get("/api/vehicles", async (req, res) => {
-	try {
-		const vehicles = await getVehicles();
-		res.json(vehicles);
-	} catch (error) {
-		res.status(500).json({ error: "Failed to fetch vehicles" });
-	}
-});
-
-// 3. API: Submit Application (Secure Proxy)
-app.post("/api/application", async (req, res) => {
-	const formData = req.body;
-
-	console.log("📩 Received Application:", formData.email);
-
-	// Validate (Basic example)
-	if (!formData.ssn || !formData.email) {
-		return res.status(400).json({ error: "Missing sensitive fields" });
-	}
-
-	try {
-		// Here you would use AXIOS to POST to your CRM
-		// await axios.post('https://crm.com/api', formData, { headers: { Authorization: process.env.CRM_KEY }})
-
-		// Simulating CRM delay
-		await new Promise((resolve) => setTimeout(resolve, 2000));
-
-		// Randomly simulate failure for testing (10% chance)
-		if (Math.random() < 0.1) throw new Error("CRM Connection Timeout");
-
-		res.json({ success: true, refId: `REF-${Date.now()}` });
-	} catch (error) {
-		console.error("CRM Submission Error");
-		res.status(502).json({ error: "Failed to submit to third-party CRM" });
-	}
-});
-
 app.listen(PORT, () => {
-	console.log(`🚀 Server running on http://localhost:${PORT}`);
+	console.log(`🛡️  Secure Server running on http://localhost:${PORT}`);
 });
