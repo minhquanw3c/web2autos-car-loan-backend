@@ -1,9 +1,17 @@
 import { Request, Response } from "express";
 import { z } from "zod";
 import { ApplicationSchema } from "../schemas/application";
+import axios from "axios";
 
 export const submitApplicationHandler = async (req: Request, res: Response) => {
 	try {
+		if (
+			!process.env.GOOGLE_SCRIPT_URL ||
+			!process.env.WEB2AUTOS_BACKEND_SECRET
+		) {
+			throw new Error("Missing envs.");
+		}
+
 		// 1. Validate Input Data
 		const validatedData = ApplicationSchema.parse(req.body);
 
@@ -13,14 +21,33 @@ export const submitApplicationHandler = async (req: Request, res: Response) => {
 		);
 
 		// 2. Simulate Secure CRM Submission
-		// In production: await axios.post(CRM_URL, validatedData, { headers: { Authorization: CRM_KEY } })
+		const resFromScriptApp = await axios.post(
+			process.env.GOOGLE_SCRIPT_URL,
+			{
+				auth_token: process.env.WEB2AUTOS_BACKEND_SECRET,
+				data: req.body,
+			},
+			{
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
 
-		await new Promise((resolve) => setTimeout(resolve, 2000)); // Mimic delay
+		const parsedRes = resFromScriptApp.data as {
+			status: string;
+			message: string;
+			httpCode: number;
+		};
 
-		// Random success/fail simulation logic
-		if (Math.random() < 0.1) throw new Error("CRM Connection Error");
+		if (parsedRes.httpCode !== 200) {
+			throw new Error("There are errors occured in Google App Script.");
+		}
 
-		res.json({ success: true, refId: `REF-${Date.now()}` });
+		res.json({
+			success: true,
+			message: "Application submitted successfully.",
+		});
 	} catch (error) {
 		if (error instanceof z.ZodError) {
 			// Validation Error
