@@ -8,6 +8,7 @@ export default defineConfig({
 	sourcemap: true,
 	splitting: false,
 	platform: "node",
+	noExternal: [/(.*)/],
 	banner: {
 		js: `import { createRequire } from 'module';const require = createRequire(import.meta.url);`,
 	},
