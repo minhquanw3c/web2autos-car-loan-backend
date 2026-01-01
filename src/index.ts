@@ -16,8 +16,12 @@ const PORT = 3000;
 // A. Helmet: Sets various HTTP headers to secure the app
 app.use(helmet());
 
+const env = process.env.NODE_ENV || "production";
 // B. Strict CORS: Only allow requests from your specific Frontend URL
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins =
+	env === "production"
+		? ["https://inventory.web2autos.com"]
+		: ["http://localhost:5173"];
 
 app.use(
 	cors({
