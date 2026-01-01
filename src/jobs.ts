@@ -79,9 +79,7 @@ const fetchFromThirdPartyAPI = async () => {
 
 // The actual Job
 export const startVehicleSyncJob = () => {
-	// Run every day at midnight: '0 0 * * *'
-	// For demo, we run it every 5 minutes: '*/5 * * * *'
-	cron.schedule("*/15 * * * *", async () => {
+	cron.schedule("0 0 * * *", async () => {
 		try {
 			const vehicles = await fetchFromThirdPartyAPI();
 			await saveVehicles(vehicles);

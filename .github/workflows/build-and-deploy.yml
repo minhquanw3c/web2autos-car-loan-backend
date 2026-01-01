@@ -28,6 +28,14 @@ jobs:
             echo "Building production..."
             npm run build
 
+            echo "Refreshing outdated files"
+            rm -rf ../../public_html/api.web2autos.com/index.js
+            rm -rf ../../public_html/api.web2autos.com/index.js.map
+            rm -rf ../../public_html/api.web2autos.com/data
+
+            echo "Deploying to public folder..."
+            cp -r dist/* ../../public_html/api.web2autos.com
+
             echo "Restarting Node Server..."
             pm2 restart "web2autos-backend-api" || pm2 start ecosystem.config.cjs
 

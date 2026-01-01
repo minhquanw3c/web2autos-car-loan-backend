@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. Force HTTPS (Redirect HTTP to HTTPS)
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # 2. Proxy API requests to Node.js (Port 3000)
+    # The [P] flag tells Apache to act as a Proxy for requests starting with /api
+    RewriteRule ^api/(.*) http://127.0.0.1:3000/api/$1 [P,L]
+
+    # 3. Vue Router Fallback (For Single Page App)
+    # If the requested file/folder doesn't exist on disk, serve index.html
+    RewriteBase /
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.html [L]
+</IfModule>

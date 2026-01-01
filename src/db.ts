@@ -5,12 +5,12 @@ import { fileURLToPath } from "url";
 // Setup path for local JSON DB
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, "../data/vehicles.json");
+const DB_PATH = path.join(__dirname, "./data/vehicles.json");
 
 // Ensure data dir exists
 const initDB = async () => {
 	try {
-		await fs.mkdir(path.join(__dirname, "../data"), { recursive: true });
+		await fs.mkdir(path.join(__dirname, "./data"), { recursive: true });
 		// Check if file exists, if not create empty array
 		try {
 			await fs.access(DB_PATH);
