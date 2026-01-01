@@ -1,11 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
 
-// Setup path for local JSON DB
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, "./data/vehicles.json");
+const DB_PATH = path.join(process.cwd(), "data", "vehicles.json");
 
 // Ensure data dir exists
 const initDB = async () => {
