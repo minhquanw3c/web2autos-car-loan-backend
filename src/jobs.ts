@@ -51,6 +51,14 @@ const fetchFromThirdPartyAPI = async () => {
 							stock_no: listing.stock_no,
 							source: listing.source,
 							mediaUrl: extractedMediaUrl,
+							referenceUrl: listing.vdp_url,
+							dealer: {
+								name: listing.dealer.name,
+								street: listing.dealer.street,
+							},
+							year: listing.build.year,
+							make: listing.build.make,
+							model: listing.build.model,
 						};
 					});
 

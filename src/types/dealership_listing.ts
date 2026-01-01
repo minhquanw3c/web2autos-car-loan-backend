@@ -9,6 +9,16 @@ export type DealershipListing = {
 	media: {
 		photo_links: Array<string>;
 	};
+	vdp_url: string;
+	dealer: {
+		name: string;
+		street: string;
+	};
+	build: {
+		year: number;
+		make: string;
+		model: string;
+	};
 };
 
 export type DealershipListingApiResponse = {
@@ -18,7 +28,11 @@ export type DealershipListingApiResponse = {
 
 export type DealershipListingClientResponse = Omit<
 	DealershipListing,
-	"media"
+	"media" | "vdp_url" | "build"
 > & {
 	mediaUrl: string;
+	referenceUrl: string;
+	year: number;
+	make: string;
+	model: string;
 };
