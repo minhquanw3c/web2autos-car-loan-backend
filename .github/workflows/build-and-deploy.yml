@@ -29,7 +29,7 @@ jobs:
             npm run build
 
             echo "Refreshing outdated files"
-            echo "[]" > ./src/data/vehicles.json
+            mkdir -p ./src/data && echo "[]" > ./src/data/vehicles.json
 
             echo "Restarting Node Server..."
             pm2 restart "web2autos-backend-api" || pm2 start ecosystem.config.cjs
