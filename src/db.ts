@@ -1,12 +1,12 @@
 import fs from "fs/promises";
 import path from "path";
 
-const DB_PATH = path.join(process.cwd(), "data", "vehicles.json");
+const DB_PATH = path.join(process.cwd(), "src/data", "vehicles.json");
 
 // Ensure data dir exists
 const initDB = async () => {
 	try {
-		await fs.mkdir(path.join(__dirname, "./data"), { recursive: true });
+		await fs.mkdir(path.join(__dirname, "src/data"), { recursive: true });
 		// Check if file exists, if not create empty array
 		try {
 			await fs.access(DB_PATH);
