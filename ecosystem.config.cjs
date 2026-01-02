@@ -2,9 +2,9 @@ module.exports = {
 	apps: [
 		{
 			name: "web2autos-backend-api",
-			script: "node",
-			args: "index.js",
-			cwd: "/home/web2autos/public_html/api.web2autos.com",
+			script: "npm",
+			args: "run start",
+			cwd: "/home/web2autos/public_html/web2autos-car-loan-backend",
 			instances: 1,
 			autorestart: true,
 			watch: false,

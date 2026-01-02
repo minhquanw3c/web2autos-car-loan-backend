@@ -30,10 +30,6 @@ jobs:
 
             echo "Refreshing outdated files"
             echo "[]" > ./src/data/vehicles.json
-            find ../../public_html/api.web2autos.com -maxdepth 1 -mindepth 1 -not -name '.htaccess' -not -name '.well-known' -exec rm -rf {} +
-
-            echo "Deploying to public folder..."
-            cp -r dist/* ../../public_html/api.web2autos.com
 
             echo "Restarting Node Server..."
             pm2 restart "web2autos-backend-api" || pm2 start ecosystem.config.cjs
