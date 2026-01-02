@@ -13,7 +13,7 @@ const fetchFromThirdPartyAPI = async () => {
 
 	const dealershipsData: Array<DealershipListingClientResponse> = [];
 
-	for (const dealership of associatedDealerships.slice(0, 1)) {
+	for (const dealership of associatedDealerships) {
 		try {
 			const res = await axios.get(
 				`https://api.marketcheck.com/v2/dealerships/inventory?api_key=${process.env.MARKETCHECK_API_KEY}`,
