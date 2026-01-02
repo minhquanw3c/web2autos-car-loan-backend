@@ -29,9 +29,8 @@ jobs:
             npm run build
 
             echo "Refreshing outdated files"
-            rm -rf ../../public_html/api.web2autos.com/index.js
-            rm -rf ../../public_html/api.web2autos.com/index.js.map
-            rm -rf ../../public_html/api.web2autos.com/data
+            echo "[]" > ./src/data/vehicles.json
+            find ../../public_html/api.web2autos.com -maxdepth 1 -mindepth 1 -not -name '.htaccess' -not -name '.well-known' -exec rm -rf {} +
 
             echo "Deploying to public folder..."
             cp -r dist/* ../../public_html/api.web2autos.com

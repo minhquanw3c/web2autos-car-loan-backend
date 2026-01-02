@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
+console.log(`Current working directory: ${process.cwd()}`);
 const DB_PATH = path.join(process.cwd(), "src/data", "vehicles.json");
 
 // Ensure data dir exists
