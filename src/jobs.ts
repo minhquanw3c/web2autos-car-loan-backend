@@ -39,8 +39,8 @@ const fetchFromThirdPartyAPI = async () => {
 					parsedRes.listings.map((listing) => {
 						const extractedMediaUrl =
 							listing.media.photo_links.length > 0
-								? listing.media.photo_links[0]
-								: "";
+								? [...listing.media.photo_links]
+								: [];
 
 						return {
 							id: listing.id,
@@ -50,15 +50,21 @@ const fetchFromThirdPartyAPI = async () => {
 							inventory_type: listing.inventory_type,
 							stock_no: listing.stock_no,
 							source: listing.source,
-							mediaUrl: extractedMediaUrl,
+							mediaUrls: extractedMediaUrl,
 							referenceUrl: listing.vdp_url,
 							dealer: {
 								name: listing.dealer.name,
 								street: listing.dealer.street,
+								dealer_type: listing.dealer.dealer_type,
 							},
-							year: listing.build.year,
-							make: listing.build.make,
-							model: listing.build.model,
+							...listing.build,
+							price_change_percent: listing.price_change_percent,
+							msrp: listing.msrp,
+							interior_color: listing.interior_color,
+							exterior_color: listing.exterior_color,
+							base_int_color: listing.base_int_color,
+							base_ext_color: listing.base_ext_color,
+							dom: listing.dom,
 						};
 					});
 

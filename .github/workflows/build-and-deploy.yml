@@ -20,6 +20,7 @@ jobs:
             cd ${{ secrets.REPOSITORY_PATH }}
 
             echo "Pulling latest changes..."
+            git checkout .
             git pull origin master
 
             echo "Installing Server dependencies..."
