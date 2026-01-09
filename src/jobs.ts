@@ -26,7 +26,6 @@ const fetchFromThirdPartyAPI = async () => {
 						start: 0,
 						price_range: "1000-100000",
 						dealer_id: dealership.id,
-						car_type: "new",
 						owned: true,
 					},
 				}
