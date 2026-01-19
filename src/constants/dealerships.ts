@@ -19,4 +19,12 @@ export const associatedDealerships = [
 		id: "1052610",
 		name: "Winn Kia Of Fremont",
 	},
+	{
+		id: "1051340",
+		name: "Fairfield Chevrolet-cadillac",
+	},
+	{
+		id: "1000989",
+		name: "Stoneridge Chrysler Jeep Dodge Of Pleasanton",
+	},
 ];
