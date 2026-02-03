@@ -27,4 +27,16 @@ export const associatedDealerships = [
 		id: "1000989",
 		name: "Stoneridge Chrysler Jeep Dodge Of Pleasanton",
 	},
+	{
+		id: "11026534",
+		name: "Hanlees Hilltop Gmc",
+	},
+	{
+		id: "1008431",
+		name: "Hanlees Davis Nissan",
+	},
+	{
+		id: "1013576",
+		name: "Hanlees Davis Chrysler Dodge Jeep Ram",
+	},
 ];
