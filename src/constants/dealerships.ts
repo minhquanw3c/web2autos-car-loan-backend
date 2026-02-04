@@ -39,4 +39,8 @@ export const associatedDealerships = [
 		id: "1013576",
 		name: "Hanlees Davis Chrysler Dodge Jeep Ram",
 	},
+	{
+		id: "1103693",
+		name: "Barnes Crossing Chevrolet Gmc",
+	},
 ];
