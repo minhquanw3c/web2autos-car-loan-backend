@@ -43,4 +43,56 @@ export const associatedDealerships = [
 		id: "1103693",
 		name: "Barnes Crossing Chevrolet Gmc",
 	},
+	{
+		id: "1077495",
+		name: "Fremont Auto Sales",
+	},
+	{
+		id: "1002706",
+		name: "Winn Volkswagen Of Woodland Hills",
+	},
+	{
+		id: "10020200",
+		name: "Genesis Of Richmond",
+	},
+	{
+		id: "1063380",
+		name: "Hanlees Chrysler Dodge Jeep Ram Of Napa",
+	},
+	{
+		id: "1002246",
+		name: "Hanlees Davis Chevrolet",
+	},
+	{
+		id: "1045738",
+		name: "Hanlees Davis Toyota",
+	},
+	{
+		id: "10010495",
+		name: "Hanlees Fairfield Nissan",
+	},
+	{
+		id: "10013370",
+		name: "Hanlees Fairfield Toyota",
+	},
+	{
+		id: "1001875",
+		name: "Hanlees Hilltop Hyundai",
+	},
+	{
+		id: "1001873",
+		name: "Hanlees Hilltop Nissan",
+	},
+	{
+		id: "1001876",
+		name: "Hanlees Hilltop Toyota",
+	},
+	{
+		id: "1016961",
+		name: "Hanlees Kia",
+	},
+	{
+		id: "1020641",
+		name: "Hanlees Napa Subaru",
+	},
 ];

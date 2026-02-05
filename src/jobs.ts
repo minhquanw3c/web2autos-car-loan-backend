@@ -28,20 +28,20 @@ const fetchFromThirdPartyAPI = async () => {
 						dealer_id: dealership.id,
 						owned: true,
 					},
-				}
+				},
 			);
 
 			const parsedRes = res.data as DealershipListingApiResponse;
 
 			if (parsedRes.num_found > 0 && parsedRes.listings.length > 0) {
-				const filteredListings: Array<DealershipListingClientResponse> =
-					parsedRes.listings.map((listing) => {
+				parsedRes.listings.forEach((listing) => {
+					try {
 						const extractedMediaUrl =
 							listing.media.photo_links.length > 0
 								? [...listing.media.photo_links]
 								: [];
 
-						return {
+						const vehicleToPush = {
 							id: listing.id,
 							heading: listing.heading,
 							price: listing.price,
@@ -65,14 +65,20 @@ const fetchFromThirdPartyAPI = async () => {
 							base_ext_color: listing.base_ext_color,
 							dom: listing.dom,
 						};
-					});
 
-				dealershipsData.push(...filteredListings);
+						dealershipsData.push(vehicleToPush);
+					} catch (error) {
+						console.error(
+							`Failed to parse vehicle data with name: ${listing.heading} with id: ${listing.id}`,
+							error,
+						);
+					}
+				});
 			}
 		} catch (error) {
 			console.error(
-				`Failed to fetch vehicles data from: ${dealership.name}`,
-				error
+				`Failed to fetch vehicles data from dealership: ${dealership.name} with id: ${dealership.id}`,
+				error,
 			);
 		}
 	}
