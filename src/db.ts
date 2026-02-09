@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+import { DealershipListingClientResponse } from "./types/dealership_listing";
 
 console.log(`Current working directory: ${process.cwd()}`);
 const DB_PATH = path.join(process.cwd(), "src/data", "vehicles.json");
@@ -25,7 +26,9 @@ export const saveVehicles = async (vehicles: any[]) => {
 	console.log(`💾 Saved ${vehicles.length} vehicles to local DB.`);
 };
 
-export const getVehicles = async () => {
+export const getVehicles = async (): Promise<
+	Array<DealershipListingClientResponse>
+> => {
 	await initDB();
 	const data = await fs.readFile(DB_PATH, "utf-8");
 	return JSON.parse(data);

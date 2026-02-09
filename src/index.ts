@@ -26,14 +26,11 @@ const env = process.env.NODE_ENV || "production";
 // Define allowed Frontend URLs for Browser Access
 const allowedOrigins =
 	env === "production"
-		? ["https://inventory.web2autos.com"]
+		? ["https://inventory.web2autos.com", "https://app.gohighlevel.com"]
 		: ["http://localhost:5173"];
 
 // Define allowed IPs for Server-to-Server Access (Third-party)
-const allowedIps: string[] = [
-	"::1", // Localhost IPv6
-	"127.0.0.1", // Localhost IPv4
-];
+const allowedIps: string[] = env === "production" ? [] : ["::1", "127.0.0.1"];
 
 // Whitelisted User Agents (Optional but recommended for server-to-server)
 const allowedUserAgents: string[] = [
@@ -43,9 +40,6 @@ const allowedUserAgents: string[] = [
 // ==========================================
 // 2. SECURITY MIDDLEWARE
 // ==========================================
-
-// A. Helmet: Sets various HTTP headers to secure the app
-app.use(helmet());
 
 // B. IP Filter Middleware
 // We place this BEFORE CORS to reject unauthorized server scripts immediately.
@@ -70,7 +64,7 @@ const ipFilterMiddleware = (
 		// if (!allowedIps.includes(requestIp)) {
 		// 	// Explicitly return to stop execution
 		// 	res.status(403).json({
-		// 		error: "Access denied: IP not whitelisted",
+		// 		error: "Access denied",
 		// 	});
 		// 	return;
 		// }
@@ -78,9 +72,12 @@ const ipFilterMiddleware = (
 		// 2. Check User-Agent (Optional extra check)
 		// This ensures random scripts from the allowed IP (if shared) can't hit it easily
 		// without knowing the correct UA string.
-		if (!allowedUserAgents.some((ua) => userAgent.includes(ua))) {
+		if (
+			env === "production" &&
+			!allowedUserAgents.some((ua) => userAgent.includes(ua))
+		) {
 			res.status(403).json({
-				error: "Access denied: Invalid User-Agent",
+				error: "Access denied",
 			});
 			return;
 		}
@@ -89,6 +86,8 @@ const ipFilterMiddleware = (
 	next();
 };
 
+// A. Helmet: Sets various HTTP headers to secure the app
+app.use(helmet());
 // Apply IP Filter globally
 app.use(ipFilterMiddleware);
 
@@ -105,9 +104,9 @@ app.use(
 
 			// Case 2: Browser request
 			// We must strictly check the domain against our whitelist.
+			console.log(`Requested from origin: ${origin}`);
 			if (allowedOrigins.indexOf(origin) === -1) {
-				const msg =
-					"The CORS policy for this site does not allow access from the specified Origin.";
+				const msg = "Access denied";
 				return callback(new Error(msg), false);
 			}
 
@@ -132,7 +131,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use("/api", apiRoutes);
 
 // Start Background Jobs (Cron)
-startVehicleSyncJob();
+// startVehicleSyncJob();
 
 app.listen(PORT, () => {
 	console.log(`🛡️  Secure Server running on http://localhost:${PORT}`);
