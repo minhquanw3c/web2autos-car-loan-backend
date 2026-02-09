@@ -80,6 +80,7 @@ export const agentHandler = async (req: Request, res: Response) => {
     </html>
     `;
 
+		console.log(htmlContent);
 		// 3. Send as HTML
 		res.setHeader("Content-Type", "text/html");
 		res.send(htmlContent);
