@@ -52,21 +52,22 @@ export const agentHandler = async (req: Request, res: Response) => {
                 </thead>
                 <tbody>
                     ${vehicles
-						.map(
-							(v) => `
+						.slice(0, 1)
+						.map((v, index) => {
+							return `
                         <tr>
                             <td>${v.id}</td>
-                            <td>${v.year}</td>
+                            <td>${v.year.toString()}</td>
                             <td>${v.make}</td>
                             <td>${v.model}</td>
-                            <td>$${v.price}</td>
+                            <td>$${v.price.toString()}</td>
                             <td>${v.inventory_type}</td>
                             <td>${`https://inventory.web2autos.com/?vehicle_id=${v.id}`}</td>
                             <td>${v.heading}</td>
                             <td>${v.dealer.name}</td>
                         </tr>
-                    `,
-						)
+                    `;
+						})
 						.join("")}
                 </tbody>
             </table>
