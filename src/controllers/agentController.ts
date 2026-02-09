@@ -61,7 +61,7 @@ export const agentHandler = async (req: Request, res: Response) => {
                             <td>${v.model}</td>
                             <td>$${v.price}</td>
                             <td>${v.inventory_type}</td>
-                            <td>https://inventory.web2autos.com/?vehicle_id=${v.id}</td>
+                            <td>${`https://inventory.web2autos.com/?vehicle_id=${v.id}`}</td>
                             <td>${v.heading}</td>
                             <td>${v.dealer.name}</td>
                         </tr>

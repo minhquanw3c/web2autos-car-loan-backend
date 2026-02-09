@@ -131,7 +131,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use("/api", apiRoutes);
 
 // Start Background Jobs (Cron)
-startVehicleSyncJob();
+// startVehicleSyncJob();
 
 app.listen(PORT, () => {
 	console.log(`🛡️  Secure Server running on http://localhost:${PORT}`);
