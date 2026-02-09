@@ -27,7 +27,6 @@ export const agentHandler = async (req: Request, res: Response) => {
                 <main>
                     <ul>
                         ${vehicles
-							.slice(0, 50)
 							.map((v, index) => {
 								return `
                                 <li>
@@ -44,7 +43,7 @@ export const agentHandler = async (req: Request, res: Response) => {
                                 </li>
                             `;
 							})
-							.join("\n\n")}
+							.join("")}
                     </ul>
                 </main>
                 
