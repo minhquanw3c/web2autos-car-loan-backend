@@ -64,6 +64,7 @@ const fetchFromThirdPartyAPI = async () => {
 							base_int_color: listing.base_int_color,
 							base_ext_color: listing.base_ext_color,
 							dom: listing.dom,
+							vin: listing.vin,
 						};
 
 						dealershipsData.push(vehicleToPush);

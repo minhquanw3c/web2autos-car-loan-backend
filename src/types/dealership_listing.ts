@@ -45,6 +45,7 @@ export type DealershipListing = {
 	base_int_color: string;
 	base_ext_color: string;
 	dom: number;
+	vin: string;
 };
 
 export type DealershipListingApiResponse = {
