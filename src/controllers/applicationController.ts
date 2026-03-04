@@ -17,7 +17,7 @@ export const submitApplicationHandler = async (req: Request, res: Response) => {
 
 		console.log(
 			"📩 Processing Secure Application:",
-			validatedData.personalinformation_email
+			validatedData.personalinformation_email,
 		);
 
 		// 2. Simulate Secure CRM Submission
@@ -31,7 +31,7 @@ export const submitApplicationHandler = async (req: Request, res: Response) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-			}
+			},
 		);
 
 		const parsedRes = resFromScriptApp.data as {
@@ -55,7 +55,7 @@ export const submitApplicationHandler = async (req: Request, res: Response) => {
 			return res.status(400).json({
 				error: "Validation Failed",
 				details: error.errors.map(
-					(e) => `${e.path.join(".")}: ${e.message}`
+					(e) => `${e.path.join(".")}: ${e.message}`,
 				),
 			});
 		}

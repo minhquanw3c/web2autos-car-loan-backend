@@ -121,7 +121,7 @@ app.use(
 app.use(globalLimiter);
 
 // E. JSON Parsing with limit
-app.use(express.json({ limit: "10kb" }));
+app.use(express.json({ limit: "100kb" }));
 
 // ==========================================
 // 3. ROUTES & JOBS
@@ -131,7 +131,9 @@ app.use(express.json({ limit: "10kb" }));
 app.use("/api", apiRoutes);
 
 // Start Background Jobs (Cron)
-startVehicleSyncJob();
+if (env === "production") {
+	startVehicleSyncJob();
+}
 
 app.listen(PORT, () => {
 	console.log(`🛡️  Secure Server running on http://localhost:${PORT}`);
