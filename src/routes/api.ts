@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { getVehiclesHandler } from "../controllers/vehicleController";
-import { submitApplicationHandler } from "../controllers/applicationController";
+import {
+	submitApplicationHandler,
+	submitDealershipInquiryHandler,
+} from "../controllers/applicationController";
 import { globalLimiter, submissionLimiter } from "../middleware/rateLimiters";
 import { agentHandler } from "../controllers/agentController";
 
@@ -11,6 +14,11 @@ router.get("/vehicles", globalLimiter, getVehiclesHandler);
 
 // Protected Endpoint (Rate Limited)
 router.post("/application", submissionLimiter, submitApplicationHandler);
+router.post(
+	"/dealership-inquiry",
+	submissionLimiter,
+	submitDealershipInquiryHandler,
+);
 
 router.get("/agent", globalLimiter, agentHandler);
 
