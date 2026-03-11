@@ -17,7 +17,10 @@ export const ApplicationSchema = z
 		personalinformation_lastname: z
 			.string()
 			.min(1, "Last name is required"),
-		personalinformation_ssn: z.string().min(1, "SSN is required"),
+		personalinformation_ssn: z
+			.string()
+			.min(1, "SSN is required")
+			.regex(/^\d{3}-\d{2}-\d{4}$/, "SSN must be in format XXX-XX-XXXX"),
 		personalinformation_dateofbirth: z.object({
 			mm: z.string(),
 			dd: z.string(),
@@ -25,7 +28,11 @@ export const ApplicationSchema = z
 		}),
 		personalinformation_phone: z
 			.string()
-			.min(10, "Phone number is too short"),
+			.min(1, "Phone number is required")
+			.regex(
+				/^\(\d{3}\) \d{3}-\d{4}$/,
+				"Phone number must be in format (XXX) XXX-XXXX",
+			),
 		personalinformation_email: z.string().email("Invalid email address"),
 
 		// --- Residence ---
