@@ -23,10 +23,10 @@ export const associatedDealerships = [
 		id: "1051340",
 		name: "Fairfield Chevrolet-cadillac",
 	},
-	{
-		id: "1000989",
-		name: "Stoneridge Chrysler Jeep Dodge Of Pleasanton",
-	},
+	// {
+	// 	id: "1000989",
+	// 	name: "Stoneridge Chrysler Jeep Dodge Of Pleasanton",
+	// },
 	{
 		id: "11026534",
 		name: "Hanlees Hilltop Gmc",
@@ -94,5 +94,9 @@ export const associatedDealerships = [
 	{
 		id: "1020641",
 		name: "Hanlees Napa Subaru",
+	},
+	{
+		id: "1046114",
+		name: "San Leandro Nissan",
 	},
 ];
