@@ -116,6 +116,9 @@ export const ApplicationSchema = z
 		finaldetails_digitalsignature: z
 			.string()
 			.min(1, "Digital signature is required"),
+		finaldetails_whatkindofcarareyoulookingtobuyrightnoworspecialrequest: z
+			.string()
+			.max(150, "Max length is 150"),
 
 		// --- Context Data ---
 		selected_vehicle: z.any(),
