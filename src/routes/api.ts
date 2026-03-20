@@ -3,6 +3,7 @@ import { getVehiclesHandler } from "../controllers/vehicleController";
 import {
 	submitApplicationHandler,
 	submitDealershipInquiryHandler,
+	submitCarFinderHandler,
 } from "../controllers/applicationController";
 import { globalLimiter, submissionLimiter } from "../middleware/rateLimiters";
 import { agentHandler } from "../controllers/agentController";
@@ -19,6 +20,7 @@ router.post(
 	submissionLimiter,
 	submitDealershipInquiryHandler,
 );
+router.post("/car-finder", submissionLimiter, submitCarFinderHandler);
 
 router.get("/agent", globalLimiter, agentHandler);
 

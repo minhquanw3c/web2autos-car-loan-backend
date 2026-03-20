@@ -204,3 +204,69 @@ export const DealershipInquirySchema = z
 			.or(z.literal("")),
 	})
 	.passthrough();
+
+export const CarFinderSchema = z
+	.object({
+		// --- Personal Information ---
+		personal_firstname: z
+			.string()
+			.min(1, "First name is required")
+			.max(50, "Max length is 50"),
+		personal_lastname: z
+			.string()
+			.min(1, "Last name is required")
+			.max(50, "Max length is 50"),
+		personal_email: z
+			.string()
+			.email("Invalid email address")
+			.max(100, "Max length is 100"),
+		personal_phone: z
+			.string()
+			.min(1, "Phone number is required")
+			.regex(
+				/^\(\d{3}\) \d{3}-\d{4}$/,
+				"Phone number must be in format (XXX) XXX-XXXX",
+			),
+		personal_zipcode: z.string().min(1, "Zip code is required"),
+
+		// --- Vehicle Information ---
+		vehicle_condition: z.string().min(1, "Condition is required"),
+		vehicle_bodystyle: z.string().optional().or(z.literal("")),
+		vehicle_make: z.string().optional().or(z.literal("")),
+		vehicle_model: z.string().optional().or(z.literal("")),
+		vehicle_trimpackage: z.string().optional().or(z.literal("")),
+		vehicle_transmission: z.string().optional().or(z.literal("")),
+		vehicle_minhighwaympg: z.string().optional().or(z.literal("")),
+		vehicle_maxmileage: z.string().optional().or(z.literal("")),
+		vehicle_yearmin: z.string().optional().or(z.literal("")),
+		vehicle_yearmax: z.string().optional().or(z.literal("")),
+		vehicle_preferredexteriorcolor: z.string().optional().or(z.literal("")),
+		vehicle_preferredinteriorcolor: z.string().optional().or(z.literal("")),
+		vehicle_minprice: z.string().optional().or(z.literal("")),
+		vehicle_maxprice: z.string().optional().or(z.literal("")),
+		vehicle_maxmonthlypayment: z.string().optional().or(z.literal("")),
+		vehicle_engine: z.string().optional().or(z.literal("")),
+		vehicle_drivetrain: z.string().optional().or(z.literal("")),
+		vehicle_fueltype: z.string().optional().or(z.literal("")),
+		vehicle_seats: z.string().optional().or(z.literal("")),
+		vehicle_seatingrows: z.string().optional().or(z.literal("")),
+		vehicle_doors: z.string().optional().or(z.literal("")),
+
+		// --- Features ---
+		features_interiorfeatures: z.array(z.string()).optional(),
+		features_exteriorfeatures: z.array(z.string()).optional(),
+		features_entertainmentfeatures: z.array(z.string()).optional(),
+		features_safetyfeatures: z.array(z.string()).optional(),
+
+		// --- Additional Information ---
+		additional_whendoyouplantopurchasethisvehicle: z
+			.string()
+			.optional()
+			.or(z.literal("")),
+		additional_comments: z
+			.string()
+			.max(200, "Max length is 200")
+			.optional()
+			.or(z.literal("")),
+	})
+	.passthrough();
