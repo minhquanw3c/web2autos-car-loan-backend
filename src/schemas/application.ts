@@ -56,9 +56,7 @@ export const ApplicationSchema = z
 		previousresidence_timeatpreviousaddress: TimeDuration.optional(),
 
 		// --- Employment ---
-		employment_employmentstatus: z
-			.string()
-			.min(1, "Employment status is required"),
+		employment_employmentstatus: z.string().optional().or(z.literal("")),
 		employment_companyname: z.string().optional().or(z.literal("")),
 
 		// --- Work Address (Conditional) ---

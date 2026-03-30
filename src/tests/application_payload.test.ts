@@ -91,6 +91,7 @@ runTest("String/Number Type Flexibility", stringNumberPayload, true);
 const minimalPayload = {
 	...baseValidPayload,
 	residence_addressline2: undefined,
+	employment_employmentstatus: undefined,
 	employment_companyname: "", // Empty string allowed
 	workaddress_addressline1: undefined, // Optional field omitted
 	previousresidence_addressline1: undefined,
