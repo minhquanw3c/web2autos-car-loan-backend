@@ -117,7 +117,16 @@ export const ApplicationSchema = z
 		finaldetails_whatkindofcarareyoulookingtobuyrightnoworspecialrequest: z
 			.string()
 			.max(150, "Max length is 150"),
-
+		finaldetails_doyouhavetradein: z.enum(["Yes", "No"], {
+			errorMap: () => ({
+				message: "Please select if you have trade-in",
+			}),
+		}),
+		finaldetails_pleaseenteryourvehiclemodelyear: z
+			.string()
+			.max(100, "Max length is 100")
+			.optional()
+			.or(z.literal("")),
 		// --- Context Data ---
 		selected_vehicle: z.any(),
 		loan_calculator_data: z.object({
