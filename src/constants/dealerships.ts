@@ -99,4 +99,8 @@ export const associatedDealerships = [
 		id: "1046114",
 		name: "San Leandro Nissan",
 	},
+	{
+		id: "10035251",
+		name: "Norcal Autos",
+	},
 ];
