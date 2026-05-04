@@ -103,4 +103,8 @@ export const associatedDealerships = [
 		id: "10035251",
 		name: "Norcal Autos",
 	},
+	{
+		id: "1000580",
+		name: "Fremont Chrysler Dodge Jeep Ram",
+	},
 ];
